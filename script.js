@@ -50,10 +50,10 @@ const romanticText = [
     "Selamat ulang tahun, cintaku. Dari sini, dari balik layar ini, aku mengirimkan doa, harapan, dan cinta yang tidak terhingga untukmu. Teruslah bersinar, Zahra."
 ];
 
-// Premium SVGs
+// SVG SAKURA, HEART, DAN SPARKLE (SUDAH BUKAN APEL NORAK)
 const svgs = {
-    apple: `<svg viewBox="0 0 100 100"><defs><linearGradient id="ap" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF69B4"/><stop offset="100%" stop-color="#FF2A85"/></linearGradient></defs><path d="M50,85 C65,85 80,75 80,55 C80,35 60,30 50,45 C40,30 20,35 20,55 C20,75 35,85 50,85 Z" fill="url(#ap)"/><path d="M45,25 Q50,15 60,15 Q55,25 45,25 Z" fill="#DCD0FF"/></svg>`,
-    strawberry: `<svg viewBox="0 0 100 100"><defs><linearGradient id="sb" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFC0CB"/><stop offset="100%" stop-color="#D81B60"/></linearGradient></defs><path d="M50,90 C80,70 90,40 75,20 C65,5 35,5 25,20 C10,40 20,70 50,90 Z" fill="url(#sb)"/><path d="M50,15 C45,5 35,10 35,10 C45,15 50,15 50,15 Z" fill="#FFF0F5"/></svg>`,
+    sakura: `<svg viewBox="0 0 100 100"><path d="M50,15 C45,-5 20,5 20,30 C20,45 40,50 50,70 C60,50 80,45 80,30 C80,5 55,-5 50,15 Z" fill="rgba(255, 182, 193, 0.8)"/></svg>`,
+    heart: `<svg viewBox="0 0 100 100"><path d="M50,85 C50,85 10,55 10,30 C10,15 25,10 35,20 C42.5,27.5 50,35 50,35 C50,35 57.5,27.5 65,20 C75,10 90,15 90,30 C90,55 50,85 50,85 Z" fill="rgba(255, 42, 133, 0.6)"/></svg>`,
     sparkle: `<svg viewBox="0 0 100 100"><path d="M50,0 Q50,50 100,50 Q50,50 50,100 Q50,50 0,50 Q50,50 50,0 Z" fill="#FFE4E1"/></svg>`
 };
 
@@ -65,7 +65,6 @@ window.onload = () => {
     initBackgroundParticles();
 };
 
-// PIN Logic (Brutal Edition)
 function enterPin(num) {
     if(currentPin.length < 6) {
         currentPin += num;
@@ -75,8 +74,10 @@ function enterPin(num) {
         checkPin();
     }
 }
+
 function clearPin() { currentPin = ""; updateDots(); }
 function deletePin() { currentPin = currentPin.slice(0, -1); updateDots(); }
+
 function updateDots() {
     const dots = document.querySelectorAll('.dot');
     dots.forEach((dot, index) => {
@@ -90,7 +91,7 @@ function checkPin() {
         fireConfetti(document.getElementById('confetti-canvas'), 150);
         setTimeout(() => {
             document.getElementById('bg-music').volume = 0.5;
-            document.getElementById('bg-music').play().catch(e => console.log("Waiting for more interaction."));
+            document.getElementById('bg-music').play().catch(e => console.log("Waiting for interaction."));
             unlockApp();
         }, 800);
     } else {
@@ -105,7 +106,6 @@ function checkPin() {
     }
 }
 
-// Master Screen Transition
 function switchScreen(hideId, showId) {
     document.getElementById(hideId).classList.remove('active-screen');
     setTimeout(() => { document.getElementById(showId).classList.add('active-screen'); }, 500); 
@@ -191,7 +191,6 @@ function updateClock() {
     document.getElementById('time-utc').innerHTML = `<span>UTC</span><b>${now.toLocaleTimeString('en-GB', {...formatOpts, timeZone: 'UTC'})}</b>`;
 }
 
-// Interactive Audio Player
 let isPlaying = true;
 let visualizerInterval;
 function toggleMusic() {
@@ -223,7 +222,6 @@ function animateVisualizer() {
     }, 150);
 }
 
-// Typewriter
 function startTypewriter() {
     const text = "Sembilan Agustus Dua Ribu Dua Belas";
     const el = document.getElementById('typewriter-date');
@@ -236,21 +234,20 @@ function startTypewriter() {
             setTimeout(type, 100);
         } else {
             document.getElementById('vinyl').classList.add('playing');
-            animateVisualizer(); // Start music visualizer animation
+            animateVisualizer();
         }
     }
     setTimeout(type, 1000);
 }
 
-// Floating Bokeh SVGs
 function startFloatingDecorations() {
     const container = document.getElementById('decor-container');
-    const types = ['apple', 'strawberry', 'sparkle'];
+    const types = ['sakura', 'heart', 'sparkle'];
     setInterval(() => {
         const el = document.createElement('div');
         el.className = 'floating-decor';
         const type = types[Math.floor(Math.random() * types.length)];
-        const size = Math.random() * 25 + 15;
+        const size = Math.random() * 20 + 10;
         const left = Math.random() * 100;
         const duration = Math.random() * 15 + 15;
         
@@ -259,14 +256,13 @@ function startFloatingDecorations() {
         el.style.height = `${size}px`;
         el.style.left = `${left}vw`;
         el.style.animationDuration = `${duration}s`;
-        el.style.opacity = Math.random() * 0.4 + 0.3;
+        el.style.opacity = Math.random() * 0.5 + 0.2;
         
         container.appendChild(el);
         setTimeout(() => el.remove(), duration * 1000);
-    }, 1200);
+    }, 1500);
 }
 
-// Advanced Reveal & Nav Logic
 function initScrollReveal() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -300,7 +296,6 @@ function initScrollReveal() {
             }
         });
 
-        // 3D Tilt hero effect
         if(current === 'hero') {
             const tilt = (scrollY / 15);
             document.querySelector('.tilt-effect').style.transform = `rotateX(${tilt}deg) translateY(${scrollY/3}px)`;
@@ -308,7 +303,6 @@ function initScrollReveal() {
     });
 }
 
-// Cinematic Gallery Intersection
 function initCinematicGallery() {
     const items = document.querySelectorAll('.scroll-item');
     const wrapper = document.querySelector('.horizontal-scroll-wrapper');
@@ -327,7 +321,6 @@ function initCinematicGallery() {
             }
         });
     });
-    // Trigger initial check
     setTimeout(() => { wrapper.dispatchEvent(new Event('scroll')); }, 500);
 }
 
@@ -344,6 +337,7 @@ function openLightbox(element) {
     content.appendChild(clone);
     lightbox.classList.add('active');
 }
+
 function closeLightbox(e) {
     if(e.target.classList.contains('lightbox') || e.target.closest('.lightbox-close')) {
         document.getElementById('lightbox').classList.remove('active');
@@ -351,7 +345,6 @@ function closeLightbox(e) {
     }
 }
 
-// Cosmic Wish
 function sendCosmicWish() {
     const input = document.getElementById('wish-input');
     const text = input.value.trim();
@@ -376,7 +369,6 @@ function sendCosmicWish() {
     }, 4000);
 }
 
-// Final SVG Logic
 function observeSVG() {
     const svg = document.getElementById('svg-love');
     const observer = new IntersectionObserver((entries) => {
@@ -402,11 +394,6 @@ function resetToStart() {
     setTimeout(() => { document.getElementById('main-app').scrollTo({top: 0, behavior: 'smooth'}); }, 400);
 }
 
-// ==========================================
-// CANAVAS ENGINES (PARTICLES & CONFETTI)
-// ==========================================
-
-// 1. Background Particles (Hearts, Stars, Dust)
 function initBackgroundParticles() {
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
@@ -457,7 +444,6 @@ function initBackgroundParticles() {
     animate();
 }
 
-// 2. Advanced Confetti Engine
 function fireConfetti(canvas, count) {
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -486,7 +472,7 @@ function fireConfetti(canvas, count) {
         pieces.forEach(p => {
             p.x += p.vx;
             p.y += p.vy;
-            p.vy += 0.5; // gravity
+            p.vy += 0.5;
             p.rotation += p.rs;
             
             if(p.y < canvas.height) active = true;
@@ -505,7 +491,6 @@ function fireConfetti(canvas, count) {
     render();
 }
 
-// 3. Cosmic Stars Canvas (For Make a Wish)
 (function initCosmicStars() {
     const canvas = document.getElementById('star-canvas');
     const ctx = canvas.getContext('2d');
