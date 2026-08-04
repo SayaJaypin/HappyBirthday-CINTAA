@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Untuk Zahra - Sebuah Perjalanan Digital</title>
+    
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons (Premium Apple-style Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Audio Element -->
+    <audio id="bg-music" loop>
+        <source src="assets/lagu.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Floating Decor Container -->
+    <div id="decor-container"></div>
+
+    <!-- HALAMAN 1: PIN LOCK -->
+    <section id="pin-screen" class="screen glass-panel active-screen">
+        <div class="pin-container">
+            <div class="lock-icon">
+                <i class="ph-fill ph-lock-key"></i>
+            </div>
+            <h1 class="pin-title">Masukkan Tanggal Spesial</h1>
+            <p class="pin-subtitle">Kunci menuju ruang rahasia kita</p>
+            <div class="pin-dots">
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+            <div class="keypad">
+                <button class="key" onclick="enterPin(1)">1</button>
+                <button class="key" onclick="enterPin(2)">2</button>
+                <button class="key" onclick="enterPin(3)">3</button>
+                <button class="key" onclick="enterPin(4)">4</button>
+                <button class="key" onclick="enterPin(5)">5</button>
+                <button class="key" onclick="enterPin(6)">6</button>
+                <button class="key" onclick="enterPin(7)">7</button>
+                <button class="key" onclick="enterPin(8)">8</button>
+                <button class="key" onclick="enterPin(9)">9</button>
+                <button class="key action" onclick="clearPin()">C</button>
+                <button class="key" onclick="enterPin(0)">0</button>
+                <button class="key action" onclick="deletePin()"><i class="ph ph-backspace"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- HALAMAN 2: LOADING SCREEN -->
+    <section id="loading-screen" class="screen">
+        <div class="loading-content">
+            <div class="loading-spinner">
+                <svg viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45"></circle>
+                </svg>
+            </div>
+            <h2 class="loading-text">Menyiapkan keajaiban...</h2>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN APPLICATION -->
+    <main id="main-app" class="screen">
+        
+        <!-- HALAMAN 3: HERO -->
+        <section id="hero" class="page-section">
+            <canvas id="fireworks-canvas"></canvas>
+            <div class="hero-content glass">
+                <h3 class="hero-greeting">Selamat Ulang Tahun</h3>
+                <h1 class="hero-name">Zahra</h1>
+                <p class="hero-date">09 Agustus 2012</p>
+                <div class="realtime-clock">
+                    <div class="time-zone" id="time-wib"></div>
+                    <div class="time-zone" id="time-wita"></div>
+                    <div class="time-zone" id="time-wit"></div>
+                    <div class="time-zone" id="time-utc"></div>
+                </div>
+                <div class="scroll-indicator">
+                    <p>Gulir ke bawah</p>
+                    <i class="ph ph-caret-down"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 4: WISHES & 3D CAKE -->
+        <section id="wishes" class="page-section">
+            <div class="section-header">
+                <h2>Pesan Dari Jauh</h2>
+                <p>Meski dunia digital menjadi tempat kita bertemu, rasa syukurku selalu nyata.</p>
+            </div>
+            
+            <div class="cake-container reveal">
+                <div class="cake-3d">
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                    <div class="cake-top"></div>
+                    <div class="cake-middle"></div>
+                    <div class="cake-bottom"></div>
+                </div>
+            </div>
+
+            <div class="wishes-container">
+                <!-- Paragraf digenerate via JS agar rapi dan dinamis -->
+                <div id="wishes-text" class="glass-card"></div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 5: GALLERY -->
+        <section id="gallery" class="page-section">
+            <div class="section-header">
+                <h2>Memori Digital Kita</h2>
+                <p>Jejak kebahagiaan yang terekam dalam layar.</p>
+            </div>
+            <div class="gallery-grid">
+                <!-- Videos -->
+                <div class="media-item reveal" onclick="openLightbox(this)"><video src="assets/video1.mp4" autoplay loop muted playsinline></video></div>
+                <div class="media-item reveal" onclick="openLightbox(this)"><video src="assets/video2.mp4" autoplay loop muted playsinline></video></div>
+                <div class="media-item reveal" onclick="openLightbox(this)"><video src="assets/video3.mp4" autoplay loop muted playsinline></video></div>
+                <div class="media-item reveal" onclick="openLightbox(this)"><video src="assets/video4.mp4" autoplay loop muted playsinline></video></div>
+                <!-- Photos -->
+                <div class="media-item reveal" onclick="openLightbox(this)"><img src="assets/foto1.jpg" alt="Zahra 1" loading="lazy"></div>
+                <div class="media-item reveal" onclick="openLightbox(this)"><img src="assets/foto2.jpg" alt="Zahra 2" loading="lazy"></div>
+                <div class="media-item reveal" onclick="openLightbox(this)"><img src="assets/foto3.jpg" alt="Zahra 3" loading="lazy"></div>
+                <div class="media-item reveal" onclick="openLightbox(this)"><img src="assets/foto4.jpg" alt="Zahra 4" loading="lazy"></div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 6: MAKE A WISH -->
+        <section id="make-wish" class="page-section">
+            <div class="wish-glass-box reveal">
+                <h2>Make A Wish</h2>
+                <p>Tuliskan satu harapanmu hari ini, dan biarkan alam semesta membacanya.</p>
+                <div class="wish-input-wrapper">
+                    <input type="text" id="wish-input" placeholder="Harapanku adalah...">
+                    <button id="btn-wish" onclick="sendWish()"><i class="ph-fill ph-paper-plane-right"></i></button>
+                </div>
+                <div id="wish-animation-container"></div>
+            </div>
+        </section>
+
+        <!-- HALAMAN 7: FINAL -->
+        <section id="final" class="page-section">
+            <div class="final-container">
+                <svg id="svg-love" viewBox="0 0 100 100" class="reveal">
+                    <path d="M50,85 C50,85 10,55 10,30 C10,15 25,10 35,20 C42.5,27.5 50,35 50,35 C50,35 57.5,27.5 65,20 C75,10 90,15 90,30 C90,55 50,85 50,85 Z" />
+                </svg>
+                
+                <div id="secret-box" class="hidden">
+                    <div class="box-lid"></div>
+                    <div class="box-body">
+                        <i class="ph-fill ph-gift"></i>
+                    </div>
+                    <button class="btn-primary mt-4" onclick="openGift()">Buka Hadiah</button>
+                </div>
+            </div>
+        </section>
+        
+        <br><br><br><br> <!-- Spacing untuk bottom nav -->
+    </main>
+
+    <!-- FULLSCREEN LIGHTBOX -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <div class="lightbox-content" id="lightbox-content"></div>
+        <button class="lightbox-close"><i class="ph ph-x"></i></button>
+    </div>
+
+    <!-- GIFT MODAL -->
+    <div id="gift-modal" class="modal glass-panel">
+        <div class="modal-content">
+            <img src="assets/hadiah-akhir.jpg" alt="Hadiah Akhir">
+            <p class="gift-caption">HAYYIEE CINTAAA, ini hadiah buat kamu! hadiah ini mungkin kecil dan tidak seberapa, tetapi aku benar-benar ingin merayakan hari ulang tahunmu dengan sepenuh hati. selamat bertambah usia yaa, cinta. semoga setiap langkahmu selalu dipenuhi kebahagiaan, kesehatan, keberkahan, dan semua impianmu dapat tercapai. yuk, ambil hadiahnyaa!</p>
+            <div class="modal-actions">
+                <a href="https://wa.me/6283815954022?text=AKU%20MAU%20SAYANGGG%20%3A3" class="btn-primary" target="_blank">Ambil Hadiah</a>
+                <button class="btn-secondary" onclick="resetToStart()">Kembali ke Awal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- APPLE STYLE BOTTOM NAV -->
+    <nav id="bottom-nav" class="apple-nav glass hidden">
+        <a href="#hero" class="nav-item active"><i class="ph-fill ph-house"></i><span>Home</span></a>
+        <a href="#wishes" class="nav-item"><i class="ph-fill ph-envelope-simple-open"></i><span>Wishes</span></a>
+        <a href="#gallery" class="nav-item"><i class="ph-fill ph-image"></i><span>Gallery</span></a>
+        <a href="#make-wish" class="nav-item"><i class="ph-fill ph-star"></i><span>Wish</span></a>
+        <a href="#final" class="nav-item"><i class="ph-fill ph-gift"></i><span>Gift</span></a>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
