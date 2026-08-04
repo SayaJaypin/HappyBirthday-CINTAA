@@ -2,8 +2,8 @@ const TARGET_PIN = "090812";
 let currentPin = "";
 let isUnlocked = false;
 
-// 30 Paragraf Teks Sesuai Hubungan Virtual
-const romanticParagraphs = [
+// 45 Paragraf & Puisi (Sangat Ekstrem dan Mendalam untuk Hubungan Virtual)
+const romanticText = [
     "Zahra, hari ini adalah tanggal sembilan Agustus, hari di mana dunia menyambut kehadiran seseorang yang sangat istimewa. Hari ini aku ingin merayakannya bersamamu, meski hanya melalui layar yang memisahkan kita.",
     "Walaupun dipisahkan jarak yang membentang, aku selalu merasa dekat denganmu. Koneksi digital ini tidak pernah membuat rasaku padamu menjadi maya. Semuanya nyata, sejelas notifikasi yang selalu kutunggu setiap harinya.",
     "Setiap pesan darimu selalu berarti. Sebuah teks sederhana 'selamat pagi' atau cerita kecil tentang harimu mampu merubah hariku yang biasa menjadi luar biasa berwarna.",
@@ -19,6 +19,14 @@ const romanticParagraphs = [
     "Aku berjanji akan selalu menjadi *support system* virtual terbaikmu. Menjadi orang pertama yang menyukai postinganmu, mengirimkan pesan penyemangat setiap pagi, dan mendengarkan keluh kesahmu setiap malam.",
     "Di hari ulang tahunmu ini, doa pertamaku adalah untuk kesehatanmu. Jaga dirimu baik-baik di sana, makan yang teratur, dan jangan terlalu lelah menatap layar. Kesehatanmu sangat berharga.",
     "Doa keduaku adalah untuk kebahagiaanmu. Semoga senyum indah itu tidak pernah luntur, dan semoga hal-hal baik selalu menemukan jalannya menujumu, hari ini dan selamanya.",
+    "[POEM_START]",
+    "Di antara baris kode dan sinyal gelombang,",
+    "Namamu terukir bukan sekadar bayang.",
+    "Jarak hanyalah angka yang tak bermakna,",
+    "Bila dua hati telah saling menyapa.",
+    "Layar ini mungkin dingin tak bersuhu,",
+    "Namun pesannya hangat merengkuh rindu.",
+    "[POEM_END]",
     "Aku selalu mendoakan agar semua impianmu dapat tercapai. Langkah demi langkah yang kamu ambil, meski aku hanya bisa melihatnya dari *update* statusmu, selalu mendapat dukungan penuh dariku.",
     "Aku rindu tawamu saat kita bertelepon larut malam. Pembicaraan dalam kita tentang masa depan, tentang mimpi, dan tentang hal-hal konyol yang kita temukan di internet selalu menjadi bagian terbaik dalam hariku.",
     "Membagikan hal lucu, tautan video, atau sekadar cerita sederhana adalah cara kita merajut kedekatan. Hal-hal kecil itu yang membuat ikatan kita begitu kuat.",
@@ -30,17 +38,23 @@ const romanticParagraphs = [
     "Terima kasih, Zahra, karena telah memilih untuk membuka hatimu untukku. Terima kasih telah membalas pesanku hari itu, awal dari cerita panjang kita yang menakjubkan ini.",
     "Terima kasih karena selalu bertahan. Melalui jaringan yang kadang buruk, kesibukan yang menyita waktu, kamu tetap menjadikan kita sebagai prioritas yang dijaga dengan baik.",
     "Semakin hari, rasa sayangku padamu semakin besar. Jarak fisik tidak pernah mampu mengerdilkan perasaan ini, justru membuatnya semakin mendalam dan berarti.",
+    "Setiap detik yang berlalu adalah bukti bahwa ikatan ini nyata. Meski tanpa genggaman tangan, hatiku merasa digenggam dengan sangat erat oleh kasih sayangmu.",
+    "Aku mengingat setiap detail cerita yang kamu bagikan. Hal-hal kecil tentang makanan kesukaanmu, lagu yang sering kamu putar, hingga hal-hal yang membuatmu kesal.",
+    "Mengenalmu adalah salah satu hadiah terbaik yang pernah kumiliki. Kamu mengajarkan aku bahwa jarak tidak bisa membunuh cinta, melainkan mengujinya menjadi lebih kuat.",
     "Aku ingin kamu merayakan hari ini dengan penuh kebahagiaan. Baca kembali pesan ini saat kamu butuh pengingat bahwa ada seseorang yang sangat menyayangimu dari kejauhan.",
     "Jadikan usia barumu ini sebagai lembaran kosong yang siap diisi dengan pengalaman baru, pencapaian hebat, dan tawa yang lebih banyak lagi.",
     "Tetaplah menjadi Zahra yang kukenal. Zahra yang tangguh, ceria, baik hati, dan selalu mampu memancarkan energi positif meski hanya lewat pesan teks.",
+    "Jangan pernah meragukan dirimu sendiri. Di mataku, kamu selalu sempurna dengan segala kelebihan dan kekuranganmu.",
+    "Aku akan selalu ada untuk merayakan setiap ulang tahunmu, mengisi kotak masukmu dengan doa, dan membuat layar ponselmu penuh dengan notifikasi kebahagiaan.",
+    "Selamat bertambah usia, manusia favoritku. Dunia mungkin luas, tapi duniaku terasa cukup hanya dengan melihat namamu *online*.",
     "Selamat ulang tahun, cintaku. Dari sini, dari balik layar ini, aku mengirimkan doa, harapan, dan cinta yang tidak terhingga untukmu. Teruslah bersinar, Zahra."
 ];
 
-// SVG Generator (Dibuat jauh lebih minimalis dan elegan, warna soft pastel)
+// Premium SVGs
 const svgs = {
-    apple: `<svg viewBox="0 0 100 100" width="100%" height="100%"><path d="M50,85 C65,85 80,75 80,55 C80,35 60,30 50,45 C40,30 20,35 20,55 C20,75 35,85 50,85 Z" fill="#FFB6C1"/><path d="M45,25 Q50,15 60,15 Q55,25 45,25 Z" fill="#E6E6FA"/></svg>`,
-    strawberry: `<svg viewBox="0 0 100 100" width="100%" height="100%"><path d="M50,90 C80,70 90,40 75,20 C65,5 35,5 25,20 C10,40 20,70 50,90 Z" fill="#FFC0CB"/><path d="M50,15 C45,5 35,10 35,10 C45,15 50,15 50,15 Z" fill="#DCD0FF"/></svg>`,
-    heart: `<svg viewBox="0 0 100 100" width="100%" height="100%"><path d="M50,85 C50,85 10,55 10,30 C10,15 25,10 35,20 C42.5,27.5 50,35 50,35 C50,35 57.5,27.5 65,20 C75,10 90,15 90,30 C90,55 50,85 50,85 Z" fill="#FFF0F5"/></svg>`
+    apple: `<svg viewBox="0 0 100 100"><defs><linearGradient id="ap" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF69B4"/><stop offset="100%" stop-color="#FF2A85"/></linearGradient></defs><path d="M50,85 C65,85 80,75 80,55 C80,35 60,30 50,45 C40,30 20,35 20,55 C20,75 35,85 50,85 Z" fill="url(#ap)"/><path d="M45,25 Q50,15 60,15 Q55,25 45,25 Z" fill="#DCD0FF"/></svg>`,
+    strawberry: `<svg viewBox="0 0 100 100"><defs><linearGradient id="sb" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFC0CB"/><stop offset="100%" stop-color="#D81B60"/></linearGradient></defs><path d="M50,90 C80,70 90,40 75,20 C65,5 35,5 25,20 C10,40 20,70 50,90 Z" fill="url(#sb)"/><path d="M50,15 C45,5 35,10 35,10 C45,15 50,15 50,15 Z" fill="#FFF0F5"/></svg>`,
+    sparkle: `<svg viewBox="0 0 100 100"><path d="M50,0 Q50,50 100,50 Q50,50 50,100 Q50,50 0,50 Q50,50 50,0 Z" fill="#FFE4E1"/></svg>`
 };
 
 window.onload = () => {
@@ -48,9 +62,10 @@ window.onload = () => {
     startFloatingDecorations();
     updateClock();
     setInterval(updateClock, 1000);
+    initBackgroundParticles();
 };
 
-// PIN Logic
+// PIN Logic (Brutal Edition)
 function enterPin(num) {
     if(currentPin.length < 6) {
         currentPin += num;
@@ -65,32 +80,35 @@ function deletePin() { currentPin = currentPin.slice(0, -1); updateDots(); }
 function updateDots() {
     const dots = document.querySelectorAll('.dot');
     dots.forEach((dot, index) => {
+        dot.classList.remove('error');
         dot.classList.toggle('filled', index < currentPin.length);
     });
 }
 
 function checkPin() {
     if(currentPin === TARGET_PIN) {
-        // Coba mainkan lagu di sini setelah user tap layar
-        document.getElementById('bg-music').volume = 0.5;
-        document.getElementById('bg-music').play().catch(e => console.log("Menunggu interaksi lebih lanjut untuk audio."));
-        unlockApp();
+        fireConfetti(document.getElementById('confetti-canvas'), 150);
+        setTimeout(() => {
+            document.getElementById('bg-music').volume = 0.5;
+            document.getElementById('bg-music').play().catch(e => console.log("Waiting for more interaction."));
+            unlockApp();
+        }, 800);
     } else {
         const keypad = document.querySelector('.keypad');
-        keypad.classList.add('shake');
+        const dots = document.querySelectorAll('.dot');
+        keypad.classList.add('shake-error');
+        dots.forEach(d => d.classList.add('error'));
         setTimeout(() => {
-            keypad.classList.remove('shake');
+            keypad.classList.remove('shake-error');
             clearPin();
-        }, 400);
+        }, 500);
     }
 }
 
-// FIX Transisi Layar
+// Master Screen Transition
 function switchScreen(hideId, showId) {
     document.getElementById(hideId).classList.remove('active-screen');
-    setTimeout(() => {
-        document.getElementById(showId).classList.add('active-screen');
-    }, 100); // Waktu jeda transisi opacity
+    setTimeout(() => { document.getElementById(showId).classList.add('active-screen'); }, 500); 
 }
 
 function unlockApp() {
@@ -98,36 +116,67 @@ function unlockApp() {
     switchScreen('pin-screen', 'loading-screen');
 
     const progressBar = document.getElementById('progress');
+    const percentText = document.getElementById('loading-percent');
+    const loadText = document.getElementById('loading-text-anim');
+    const loadPhrases = ["Memuat memori...", "Menghangatkan piksel...", "Menyatukan serpihan rindu..."];
+    
     let width = 0;
+    let phraseIdx = 0;
+    
     const interval = setInterval(() => {
-        width += Math.random() * 20; // Loading lebih cepat
-        if(width >= 100) {
-            width = 100;
-            progressBar.style.width = '100%';
+        width += Math.random() * 15; 
+        if(width >= 100) width = 100;
+        
+        progressBar.style.width = width + '%';
+        percentText.innerText = Math.floor(width) + '%';
+        
+        if(width > 30 && phraseIdx === 0) { loadText.innerText = loadPhrases[1]; phraseIdx++; }
+        if(width > 70 && phraseIdx === 1) { loadText.innerText = loadPhrases[2]; phraseIdx++; }
+        
+        if(width === 100) {
             clearInterval(interval);
             setTimeout(() => {
                 switchScreen('loading-screen', 'main-app');
                 document.getElementById('bottom-nav').classList.remove('hidden');
                 initMainApp();
-            }, 500);
-        } else {
-            progressBar.style.width = width + '%';
+            }, 800);
         }
-    }, 300);
+    }, 250);
 }
 
 function initMainApp() {
     initScrollReveal();
-    startFireworks();
     observeSVG();
+    startTypewriter();
+    initCinematicGallery();
 }
 
 function generateWishes() {
     const container = document.getElementById('wishes-text');
-    romanticParagraphs.forEach(text => {
+    let isPoem = false;
+    let poemDiv = null;
+
+    romanticText.forEach(text => {
+        if(text === "[POEM_START]") {
+            isPoem = true;
+            poemDiv = document.createElement('div');
+            poemDiv.className = 'poem-section';
+            return;
+        }
+        if(text === "[POEM_END]") {
+            isPoem = false;
+            container.appendChild(poemDiv);
+            return;
+        }
+
         const p = document.createElement('p');
         p.textContent = text;
-        container.appendChild(p);
+        
+        if(isPoem) {
+            poemDiv.appendChild(p);
+        } else {
+            container.appendChild(p);
+        }
     });
 }
 
@@ -136,38 +185,88 @@ function updateClock() {
     const now = new Date();
     const formatOpts = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
     
-    document.getElementById('time-wib').innerHTML = `WIB<br><b>${now.toLocaleTimeString('id-ID', {...formatOpts, timeZone: 'Asia/Jakarta'})}</b>`;
-    document.getElementById('time-wita').innerHTML = `WITA<br><b>${now.toLocaleTimeString('id-ID', {...formatOpts, timeZone: 'Asia/Makassar'})}</b>`;
-    document.getElementById('time-wit').innerHTML = `WIT<br><b>${now.toLocaleTimeString('id-ID', {...formatOpts, timeZone: 'Asia/Jayapura'})}</b>`;
-    document.getElementById('time-utc').innerHTML = `UTC<br><b>${now.toLocaleTimeString('en-GB', {...formatOpts, timeZone: 'UTC'})}</b>`;
+    document.getElementById('time-wib').innerHTML = `<span>WIB</span><b>${now.toLocaleTimeString('id-ID', {...formatOpts, timeZone: 'Asia/Jakarta'})}</b>`;
+    document.getElementById('time-wita').innerHTML = `<span>WITA</span><b>${now.toLocaleTimeString('id-ID', {...formatOpts, timeZone: 'Asia/Makassar'})}</b>`;
+    document.getElementById('time-wit').innerHTML = `<span>WIT</span><b>${now.toLocaleTimeString('id-ID', {...formatOpts, timeZone: 'Asia/Jayapura'})}</b>`;
+    document.getElementById('time-utc').innerHTML = `<span>UTC</span><b>${now.toLocaleTimeString('en-GB', {...formatOpts, timeZone: 'UTC'})}</b>`;
 }
 
-// Floating Decor: Diubah menjadi style 'Bokeh' Partikel Kaca Lembut
+// Interactive Audio Player
+let isPlaying = true;
+let visualizerInterval;
+function toggleMusic() {
+    const audio = document.getElementById('bg-music');
+    const vinyl = document.getElementById('vinyl');
+    const btn = document.getElementById('btn-play');
+    
+    if(isPlaying) {
+        audio.pause();
+        vinyl.classList.remove('playing');
+        btn.innerHTML = '<i class="ph-fill ph-play"></i>';
+        clearInterval(visualizerInterval);
+        document.querySelectorAll('.bar').forEach(b => b.style.height = '2px');
+    } else {
+        audio.play();
+        vinyl.classList.add('playing');
+        btn.innerHTML = '<i class="ph-fill ph-pause"></i>';
+        animateVisualizer();
+    }
+    isPlaying = !isPlaying;
+}
+
+function animateVisualizer() {
+    const bars = document.querySelectorAll('.bar');
+    visualizerInterval = setInterval(() => {
+        bars.forEach(bar => {
+            bar.style.height = Math.random() * 12 + 3 + 'px';
+        });
+    }, 150);
+}
+
+// Typewriter
+function startTypewriter() {
+    const text = "Sembilan Agustus Dua Ribu Dua Belas";
+    const el = document.getElementById('typewriter-date');
+    let i = 0;
+    el.innerHTML = '';
+    function type() {
+        if(i < text.length) {
+            el.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, 100);
+        } else {
+            document.getElementById('vinyl').classList.add('playing');
+            animateVisualizer(); // Start music visualizer animation
+        }
+    }
+    setTimeout(type, 1000);
+}
+
+// Floating Bokeh SVGs
 function startFloatingDecorations() {
     const container = document.getElementById('decor-container');
-    const decorTypes = ['apple', 'strawberry', 'heart'];
-    
+    const types = ['apple', 'strawberry', 'sparkle'];
     setInterval(() => {
         const el = document.createElement('div');
         el.className = 'floating-decor';
-        
-        const type = decorTypes[Math.floor(Math.random() * decorTypes.length)];
-        const size = Math.random() * 15 + 10; // Ukuran diperkecil agar elegan
+        const type = types[Math.floor(Math.random() * types.length)];
+        const size = Math.random() * 25 + 15;
         const left = Math.random() * 100;
-        const duration = Math.random() * 12 + 10;
+        const duration = Math.random() * 15 + 15;
         
         el.innerHTML = svgs[type];
         el.style.width = `${size}px`;
         el.style.height = `${size}px`;
         el.style.left = `${left}vw`;
         el.style.animationDuration = `${duration}s`;
-        el.style.opacity = Math.random() * 0.4 + 0.2; // Transparansi tinggi
+        el.style.opacity = Math.random() * 0.4 + 0.3;
         
         container.appendChild(el);
         setTimeout(() => el.remove(), duration * 1000);
-    }, 1500); // Frekuensi kemunculan dikurangi agar tidak ramai
+    }, 1200);
 }
 
+// Advanced Reveal & Nav Logic
 function initScrollReveal() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -175,21 +274,21 @@ function initScrollReveal() {
                 entry.target.classList.add('active');
             }
         });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Nav Logic
     const sections = document.querySelectorAll('.page-section');
     const navItems = document.querySelectorAll('.nav-item');
+    const mainApp = document.getElementById('main-app');
     
-    document.getElementById('main-app').addEventListener('scroll', () => {
+    mainApp.addEventListener('scroll', () => {
         let current = '';
-        const scrollY = document.getElementById('main-app').scrollTop;
+        const scrollY = mainApp.scrollTop;
         
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            if (scrollY >= sectionTop - window.innerHeight / 2) {
+            if (scrollY >= sectionTop - window.innerHeight / 2.5) {
                 current = section.getAttribute('id');
             }
         });
@@ -200,7 +299,36 @@ function initScrollReveal() {
                 item.classList.add('active');
             }
         });
+
+        // 3D Tilt hero effect
+        if(current === 'hero') {
+            const tilt = (scrollY / 15);
+            document.querySelector('.tilt-effect').style.transform = `rotateX(${tilt}deg) translateY(${scrollY/3}px)`;
+        }
     });
+}
+
+// Cinematic Gallery Intersection
+function initCinematicGallery() {
+    const items = document.querySelectorAll('.scroll-item');
+    const wrapper = document.querySelector('.horizontal-scroll-wrapper');
+    
+    wrapper.addEventListener('scroll', () => {
+        const center = wrapper.getBoundingClientRect().left + wrapper.offsetWidth / 2;
+        items.forEach(item => {
+            const rect = item.getBoundingClientRect();
+            const itemCenter = rect.left + rect.width / 2;
+            const dist = Math.abs(center - itemCenter);
+            
+            if(dist < 150) {
+                item.classList.add('active-item');
+            } else {
+                item.classList.remove('active-item');
+            }
+        });
+    });
+    // Trigger initial check
+    setTimeout(() => { wrapper.dispatchEvent(new Event('scroll')); }, 500);
 }
 
 function openLightbox(element) {
@@ -216,26 +344,39 @@ function openLightbox(element) {
     content.appendChild(clone);
     lightbox.classList.add('active');
 }
-function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('active');
-    setTimeout(() => { document.getElementById('lightbox-content').innerHTML = ''; }, 400);
+function closeLightbox(e) {
+    if(e.target.classList.contains('lightbox') || e.target.closest('.lightbox-close')) {
+        document.getElementById('lightbox').classList.remove('active');
+        setTimeout(() => { document.getElementById('lightbox-content').innerHTML = ''; }, 400);
+    }
 }
 
-function sendWish() {
+// Cosmic Wish
+function sendCosmicWish() {
     const input = document.getElementById('wish-input');
     const text = input.value.trim();
     if(!text) return;
-
-    input.value = '';
-    const container = document.getElementById('wish-animation-container');
-    const wishEl = document.createElement('div');
-    wishEl.className = 'flying-wish';
-    wishEl.innerText = text;
     
-    container.appendChild(wishEl);
-    setTimeout(() => wishEl.remove(), 3000);
+    const section = document.getElementById('make-wish');
+    const starCanvas = document.getElementById('star-canvas');
+    section.classList.add('cosmic-mode');
+    starCanvas.style.opacity = '1';
+    
+    input.value = '';
+    
+    const wishEl = document.createElement('div');
+    wishEl.className = 'shooting-star-anim';
+    wishEl.innerText = text;
+    section.appendChild(wishEl);
+    
+    setTimeout(() => {
+        wishEl.remove();
+        section.classList.remove('cosmic-mode');
+        starCanvas.style.opacity = '0';
+    }, 4000);
 }
 
+// Final SVG Logic
 function observeSVG() {
     const svg = document.getElementById('svg-love');
     const observer = new IntersectionObserver((entries) => {
@@ -243,7 +384,8 @@ function observeSVG() {
             svg.classList.add('draw');
             setTimeout(() => {
                 document.getElementById('secret-box').classList.remove('hidden');
-            }, 3500);
+                document.getElementById('secret-box').addEventListener('click', openGift);
+            }, 4500);
             observer.disconnect();
         }
     });
@@ -252,72 +394,146 @@ function observeSVG() {
 
 function openGift() {
     document.getElementById('gift-modal').classList.add('active');
+    setTimeout(() => { fireConfetti(document.getElementById('modal-confetti'), 200); }, 300);
 }
 
 function resetToStart() {
     document.getElementById('gift-modal').classList.remove('active');
-    setTimeout(() => {
-        document.getElementById('main-app').scrollTo({top: 0, behavior: 'smooth'});
-    }, 400);
+    setTimeout(() => { document.getElementById('main-app').scrollTo({top: 0, behavior: 'smooth'}); }, 400);
 }
 
-function startFireworks() {
-    const canvas = document.getElementById('fireworks-canvas');
+// ==========================================
+// CANAVAS ENGINES (PARTICLES & CONFETTI)
+// ==========================================
+
+// 1. Background Particles (Hearts, Stars, Dust)
+function initBackgroundParticles() {
+    const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     
     function resize() {
-        canvas.width = document.getElementById('hero').clientWidth;
-        canvas.height = document.getElementById('hero').clientHeight;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
-    resize();
     window.addEventListener('resize', resize);
+    resize();
 
     const particles = [];
-    // Warna soft pastel untuk kembang api
-    const colors = ['#FF2A85', '#FFB6C1', '#FFF0F5', '#E6E6FA'];
+    const colors = ['#FF2A85', '#FF69B4', '#FFF', '#FFB6C1'];
 
     class Particle {
-        constructor(x, y, color) {
-            this.x = x; this.y = y; this.color = color;
-            this.radius = Math.random() * 1.5 + 0.5;
-            this.velocity = { x: (Math.random() - 0.5) * 4, y: (Math.random() - 0.5) * 4 };
-            this.life = 100; this.alpha = 1;
-        }
-        draw() {
-            ctx.save();
-            ctx.globalAlpha = this.alpha;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = this.color;
-            ctx.fill();
-            ctx.restore();
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedX = Math.random() * 1 - 0.5;
+            this.speedY = Math.random() * -1 - 0.5;
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+            this.opacity = Math.random() * 0.5 + 0.2;
         }
         update() {
-            this.x += this.velocity.x; this.y += this.velocity.y;
-            this.velocity.y += 0.03; 
-            this.life -= 1.5; this.alpha -= 0.015;
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.y < 0) {
+                this.y = canvas.height;
+                this.x = Math.random() * canvas.width;
+            }
+        }
+        draw() {
+            ctx.globalAlpha = this.opacity;
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
         }
     }
+    for (let i = 0; i < 150; i++) particles.push(new Particle());
 
-    function createFirework(x, y) {
-        for(let i = 0; i < 30; i++) {
-            particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
-        }
-    }
-
-    function animateCanvas() {
-        requestAnimationFrame(animateCanvas);
+    function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        if(Math.random() < 0.03) {
-            createFirework(Math.random() * canvas.width, Math.random() * (canvas.height/2));
-        }
-
-        for(let i = particles.length - 1; i >= 0; i--) {
-            let p = particles[i];
-            p.update(); p.draw();
-            if(p.alpha <= 0 || p.life <= 0) particles.splice(i, 1);
-        }
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
     }
-    animateCanvas();
+    animate();
 }
+
+// 2. Advanced Confetti Engine
+function fireConfetti(canvas, count) {
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const pieces = [];
+    const colors = ['#FF2A85', '#FFD700', '#D81B60', '#FFF', '#FF69B4'];
+    
+    for(let i=0; i<count; i++) {
+        pieces.push({
+            x: canvas.width / 2,
+            y: canvas.height / 2 + 100,
+            vx: (Math.random() - 0.5) * 25,
+            vy: (Math.random() - 1) * 25 - 5,
+            size: Math.random() * 10 + 5,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rotation: Math.random() * 360,
+            rs: (Math.random() - 0.5) * 10
+        });
+    }
+    
+    function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let active = false;
+        
+        pieces.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.5; // gravity
+            p.rotation += p.rs;
+            
+            if(p.y < canvas.height) active = true;
+            
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rotation * Math.PI / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+            ctx.restore();
+        });
+        
+        if(active) requestAnimationFrame(render);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    render();
+}
+
+// 3. Cosmic Stars Canvas (For Make a Wish)
+(function initCosmicStars() {
+    const canvas = document.getElementById('star-canvas');
+    const ctx = canvas.getContext('2d');
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
+    
+    const stars = [];
+    for(let i=0; i<200; i++) {
+        stars.push({
+            x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+            r: Math.random() * 1.5,
+            a: Math.random(),
+            da: (Math.random() - 0.5) * 0.05
+        });
+    }
+    function drawStars() {
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        stars.forEach(s => {
+            s.a += s.da;
+            if(s.a < 0 || s.a > 1) s.da = -s.da;
+            ctx.globalAlpha = Math.abs(s.a);
+            ctx.fillStyle = '#FFF';
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+            ctx.fill();
+        });
+        requestAnimationFrame(drawStars);
+    }
+    drawStars();
+})();

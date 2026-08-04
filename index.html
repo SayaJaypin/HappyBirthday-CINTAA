@@ -5,37 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Untuk Zahra - Sebuah Perjalanan Digital</title>
     
-    <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&display=swap" rel="stylesheet">
     
-    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Audio Element -->
     <audio id="bg-music" loop>
         <source src="assets/lagu.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Animated Mesh Gradient Background -->
     <div class="mesh-bg"></div>
+    <canvas id="particle-canvas"></canvas>
 
-    <!-- Floating Decor Container -->
     <div id="decor-container"></div>
 
-    <!-- HALAMAN 1: PIN LOCK (APPLE STYLE) -->
     <section id="pin-screen" class="screen active-screen">
-        <div class="pin-container glass-panel">
-            <div class="lock-icon">
+        <canvas id="confetti-canvas" class="overlay-canvas"></canvas>
+        <div class="pin-container ultra-glass reveal-load">
+            <div class="lock-icon pulse-glow">
                 <i class="ph-fill ph-lock-key"></i>
             </div>
-            <h1 class="pin-title">Masukkan PIN</h1>
-            <p class="pin-subtitle">Tanggal spesial kita</p>
-            <div class="pin-dots">
+            <h1 class="pin-title">Ruang Rahasia</h1>
+            <p class="pin-subtitle">Masukkan tanggal saat dunia menjadi lebih indah</p>
+            <div class="pin-dots" id="pin-dots">
                 <div class="dot"></div><div class="dot"></div><div class="dot"></div>
                 <div class="dot"></div><div class="dot"></div><div class="dot"></div>
             </div>
@@ -49,148 +45,302 @@
                 <button class="key" onclick="enterPin(7)">7</button>
                 <button class="key" onclick="enterPin(8)">8</button>
                 <button class="key" onclick="enterPin(9)">9</button>
-                <button class="key action-key" onclick="clearPin()">C</button>
+                <button class="key action-key" onclick="clearPin()"><i class="ph ph-x"></i></button>
                 <button class="key" onclick="enterPin(0)">0</button>
-                <button class="key action-key" onclick="deletePin()"><i class="ph ph-backspace"></i></button>
+                <button class="key action-key" onclick="deletePin()"><i class="ph-fill ph-backspace"></i></button>
             </div>
         </div>
     </section>
 
-    <!-- HALAMAN 2: LOADING SCREEN -->
     <section id="loading-screen" class="screen">
-        <div class="loading-content glass-panel">
-            <div class="ios-spinner"></div>
-            <h2 class="loading-text">Menyiapkan keajaiban...</h2>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="progress"></div>
+        <div class="loading-content ultra-glass">
+            <div class="complex-spinner">
+                <div class="ring ring1"></div>
+                <div class="ring ring2"></div>
+                <div class="ring ring3"></div>
+                <i class="ph-fill ph-heart heart-center pulse-glow"></i>
             </div>
+            <h2 class="loading-text" id="loading-text-anim">Menyatukan serpihan rindu...</h2>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress">
+                    <div class="progress-glow"></div>
+                </div>
+            </div>
+            <p class="loading-percentage" id="loading-percent">0%</p>
         </div>
     </section>
 
-    <!-- MAIN APPLICATION -->
     <main id="main-app" class="screen">
         
-        <!-- HALAMAN 3: HERO -->
         <section id="hero" class="page-section">
-            <canvas id="fireworks-canvas"></canvas>
-            <div class="hero-content glass-panel">
+            <div class="hero-content ultra-glass tilt-effect">
+                <div class="hero-badge">Special Day</div>
                 <h3 class="hero-greeting">Selamat Ulang Tahun</h3>
-                <h1 class="hero-name">Zahra</h1>
-                <p class="hero-date">09 Agustus 2012</p>
+                <h1 class="hero-name glow-text">Zahra</h1>
+                <p class="hero-date" id="typewriter-date"></p>
+                
+                <div class="music-player">
+                    <div class="vinyl-record" id="vinyl">
+                        <div class="vinyl-center"></div>
+                    </div>
+                    <div class="player-controls">
+                        <p class="song-title">Merry Christmas, I Miss You</p>
+                        <div class="visualizer">
+                            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                        </div>
+                        <button class="btn-play" onclick="toggleMusic()" id="btn-play">
+                            <i class="ph-fill ph-pause"></i>
+                        </button>
+                    </div>
+                </div>
+
                 <div class="realtime-clock">
                     <div class="time-zone" id="time-wib"></div>
                     <div class="time-zone" id="time-wita"></div>
                     <div class="time-zone" id="time-wit"></div>
                     <div class="time-zone" id="time-utc"></div>
                 </div>
-                <div class="scroll-indicator">
-                    <p>Gulir perlahan</p>
-                    <i class="ph ph-caret-down"></i>
+                
+                <div class="scroll-indicator bounce">
+                    <p>Mulai Perjalanan</p>
+                    <i class="ph ph-caret-double-down"></i>
                 </div>
             </div>
         </section>
 
-        <!-- HALAMAN 4: WISHES & 3D CAKE -->
+        <section id="timeline" class="page-section">
+            <div class="section-header reveal">
+                <h2>Jejak Digital Kita</h2>
+                <p>Meski tanpa sentuhan, setiap detiknya begitu bermakna.</p>
+            </div>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <div class="timeline-item left reveal">
+                    <div class="timeline-content ultra-glass">
+                        <div class="timeline-icon"><i class="ph-fill ph-bell-ringing"></i></div>
+                        <h3>Notifikasi Pertama</h3>
+                        <p>Sebuah sapaan sederhana di layar kaca yang perlahan mengubah warna hari-hariku menjadi lebih cerah.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right reveal">
+                    <div class="timeline-content ultra-glass">
+                        <div class="timeline-icon"><i class="ph-fill ph-chat-teardrop-text"></i></div>
+                        <h3>Rutinitas Teks</h3>
+                        <p>Dari cerita singkat hingga percakapan panjang. Mengetik pesan untukmu menjadi hal favorit yang selalu kutunggu.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left reveal">
+                    <div class="timeline-content ultra-glass">
+                        <div class="timeline-icon"><i class="ph-fill ph-phone-call"></i></div>
+                        <h3>Suara yang Menenangkan</h3>
+                        <p>Mendengar tawamu secara langsung melalui panggilan. Jarak ribuan kilometer terasa lenyap seketika.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right reveal">
+                    <div class="timeline-content ultra-glass">
+                        <div class="timeline-icon"><i class="ph-fill ph-moon-stars"></i></div>
+                        <h3>Malam Tanpa Tidur</h3>
+                        <p>Berbagi tautan lucu, membicarakan masa depan, dan saling menemani hingga larut malam. Ruang virtual ini adalah rumah kita.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reasons" class="page-section">
+            <div class="section-header reveal">
+                <h2>Mengapa Kamu Berarti</h2>
+                <p>Sentuh kartu ini untuk melihat isi hatiku.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="flip-card reveal">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front ultra-glass">
+                            <i class="ph-fill ph-sparkle"></i>
+                            <h3>Senyumanmu</h3>
+                        </div>
+                        <div class="flip-card-back ultra-glass">
+                            <p>Meski aku hanya bisa melihatnya dari kiriman foto, senyummu selalu berhasil memberikan energi positif untuk hariku.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card reveal" style="transition-delay: 0.1s">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front ultra-glass">
+                            <i class="ph-fill ph-ear"></i>
+                            <h3>Pendengar Setia</h3>
+                        </div>
+                        <div class="flip-card-back ultra-glass">
+                            <p>Cara kamu membaca dan membalas keluh kesahku membuatku merasa sangat dihargai. Kamu selalu ada untukku.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card reveal" style="transition-delay: 0.2s">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front ultra-glass">
+                            <i class="ph-fill ph-shield-star"></i>
+                            <h3>Ketegaranmu</h3>
+                        </div>
+                        <div class="flip-card-back ultra-glass">
+                            <p>Melihat bagaimana kamu berjuang setiap hari membuatku sangat bangga. Kamu adalah wanita yang luar biasa kuat.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card reveal">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front ultra-glass">
+                            <i class="ph-fill ph-clock-countdown"></i>
+                            <h3>Waktumu</h3>
+                        </div>
+                        <div class="flip-card-back ultra-glass">
+                            <p>Di tengah kesibukanmu, kamu selalu menyisihkan waktu untuk kita. Sebuah pengorbanan yang sangat kusyukuri.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card reveal" style="transition-delay: 0.1s">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front ultra-glass">
+                            <i class="ph-fill ph-magic-wand"></i>
+                            <h3>Keajaiban Kecil</h3>
+                        </div>
+                        <div class="flip-card-back ultra-glass">
+                            <p>Kehadiranmu mengubah rutinitasku yang membosankan menjadi petualangan digital yang sangat menyenangkan.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card reveal" style="transition-delay: 0.2s">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front ultra-glass">
+                            <i class="ph-fill ph-infinity"></i>
+                            <h3>Kesetiaanmu</h3>
+                        </div>
+                        <div class="flip-card-back ultra-glass">
+                            <p>Terpisah jarak bukan penghalang. Kesetiaan dan kepercayaan yang kita bangun adalah pondasi terkuat kita.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="wishes" class="page-section">
             <div class="section-header reveal">
                 <h2>Pesan Dari Jauh</h2>
-                <p>Meski dunia digital menjadi tempat kita bertemu, rasa syukurku selalu nyata.</p>
+                <p>Bacalah ini saat kamu merindukanku.</p>
             </div>
             
-            <div class="cake-container reveal">
-                <div class="cake-3d">
-                    <div class="candle">
-                        <div class="flame"></div>
+            <div class="cake-wrapper reveal">
+                <div class="cake-glow"></div>
+                <div class="cake-container">
+                    <div class="cake-3d">
+                        <div class="candle"><div class="flame"></div><div class="glow-aura"></div></div>
+                        <div class="cake-top"></div>
+                        <div class="cake-middle"></div>
+                        <div class="cake-bottom"></div>
                     </div>
-                    <div class="cake-top"></div>
-                    <div class="cake-middle"></div>
-                    <div class="cake-bottom"></div>
                 </div>
             </div>
 
             <div class="wishes-container reveal">
-                <div id="wishes-text" class="glass-card"></div>
+                <div id="wishes-text" class="ultra-glass scrollable-text">
+                    </div>
             </div>
         </section>
 
-        <!-- HALAMAN 5: GALLERY -->
         <section id="gallery" class="page-section">
             <div class="section-header reveal">
-                <h2>Memori Digital Kita</h2>
-                <p>Jejak kebahagiaan yang terekam dalam layar.</p>
+                <h2>Galeri Memori</h2>
+                <p>Geser untuk melihat rekam jejak visual kita.</p>
             </div>
-            <div class="gallery-grid">
-                <!-- Videos -->
-                <div class="media-item reveal" onclick="openLightbox(this)"><video src="assets/video1.mp4" autoplay loop muted playsinline></video></div>
-                <div class="media-item reveal" onclick="openLightbox(this)"><video src="assets/video2.mp4" autoplay loop muted playsinline></video></div>
-                <div class="media-item reveal" onclick="openLightbox(this)"><video src="assets/video3.mp4" autoplay loop muted playsinline></video></div>
-                <div class="media-item reveal" onclick="openLightbox(this)"><video src="assets/video4.mp4" autoplay loop muted playsinline></video></div>
-                <!-- Photos -->
-                <div class="media-item reveal" onclick="openLightbox(this)"><img src="assets/foto1.jpg" alt="Zahra 1" loading="lazy"></div>
-                <div class="media-item reveal" onclick="openLightbox(this)"><img src="assets/foto2.jpg" alt="Zahra 2" loading="lazy"></div>
-                <div class="media-item reveal" onclick="openLightbox(this)"><img src="assets/foto3.jpg" alt="Zahra 3" loading="lazy"></div>
-                <div class="media-item reveal" onclick="openLightbox(this)"><img src="assets/foto4.jpg" alt="Zahra 4" loading="lazy"></div>
+            <div class="horizontal-scroll-wrapper reveal">
+                <div class="scroll-item" onclick="openLightbox(this)"><video src="assets/video1.mp4" autoplay loop muted playsinline></video></div>
+                <div class="scroll-item" onclick="openLightbox(this)"><img src="assets/foto1.jpg" alt="Memori 1" loading="lazy"></div>
+                <div class="scroll-item" onclick="openLightbox(this)"><video src="assets/video2.mp4" autoplay loop muted playsinline></video></div>
+                <div class="scroll-item" onclick="openLightbox(this)"><img src="assets/foto2.jpg" alt="Memori 2" loading="lazy"></div>
+                <div class="scroll-item" onclick="openLightbox(this)"><video src="assets/video3.mp4" autoplay loop muted playsinline></video></div>
+                <div class="scroll-item" onclick="openLightbox(this)"><img src="assets/foto3.jpg" alt="Memori 3" loading="lazy"></div>
+                <div class="scroll-item" onclick="openLightbox(this)"><video src="assets/video4.mp4" autoplay loop muted playsinline></video></div>
+                <div class="scroll-item" onclick="openLightbox(this)"><img src="assets/foto4.jpg" alt="Memori 4" loading="lazy"></div>
+            </div>
+            <div class="swipe-hint reveal">
+                <i class="ph ph-hand-swipe-left"></i> Geser
             </div>
         </section>
 
-        <!-- HALAMAN 6: MAKE A WISH -->
-        <section id="make-wish" class="page-section">
-            <div class="wish-glass-box glass-panel reveal">
-                <h2>Make A Wish</h2>
-                <p>Tuliskan satu harapanmu hari ini, dan biarkan alam semesta membacanya.</p>
+        <section id="make-wish" class="page-section dark-mode-trigger">
+            <canvas id="star-canvas"></canvas>
+            <div class="wish-glass-box ultra-glass reveal">
+                <h2 class="glow-text">Bisikkan Pada Semesta</h2>
+                <p>Tuliskan satu harapanmu, dan saksikan ia melesat ke angkasa.</p>
                 <div class="wish-input-wrapper">
-                    <input type="text" id="wish-input" placeholder="Harapanku adalah...">
-                    <button id="btn-wish" onclick="sendWish()"><i class="ph-fill ph-paper-plane-right"></i></button>
+                    <input type="text" id="wish-input" placeholder="Harapanku adalah..." autocomplete="off">
+                    <button id="btn-wish" onclick="sendCosmicWish()"><i class="ph-fill ph-paper-plane-right"></i></button>
                 </div>
-                <div id="wish-animation-container"></div>
             </div>
         </section>
 
-        <!-- HALAMAN 7: FINAL -->
         <section id="final" class="page-section">
             <div class="final-container">
+                <h2 class="reveal secret-title">Satu Hal Terakhir...</h2>
                 <svg id="svg-love" viewBox="0 0 100 100" class="reveal">
-                    <path d="M50,85 C50,85 10,55 10,30 C10,15 25,10 35,20 C42.5,27.5 50,35 50,35 C50,35 57.5,27.5 65,20 C75,10 90,15 90,30 C90,55 50,85 50,85 Z" />
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#FF2A85;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#FF69B4;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <path d="M50,85 C50,85 10,55 10,30 C10,15 25,10 35,20 C42.5,27.5 50,35 50,35 C50,35 57.5,27.5 65,20 C75,10 90,15 90,30 C90,55 50,85 50,85 Z" filter="url(#glow)"/>
                 </svg>
                 
-                <div id="secret-box" class="hidden">
+                <div id="secret-box" class="hidden pulse-glow">
                     <div class="box-lid"></div>
                     <div class="box-body">
                         <i class="ph-fill ph-gift"></i>
                     </div>
-                    <button class="btn-primary mt-4" onclick="openGift()">Buka Hadiah</button>
                 </div>
             </div>
         </section>
         
-        <br><br><br><br> <!-- Spacing untuk bottom nav -->
+        <br><br><br><br><br>
     </main>
 
-    <!-- FULLSCREEN LIGHTBOX -->
-    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
         <div class="lightbox-content" id="lightbox-content"></div>
-        <button class="lightbox-close"><i class="ph ph-x"></i></button>
+        <button class="lightbox-close"><i class="ph-bold ph-x"></i></button>
     </div>
 
-    <!-- GIFT MODAL -->
     <div id="gift-modal" class="modal">
-        <div class="modal-content glass-panel">
-            <img src="assets/hadiah-akhir.jpg" alt="Hadiah Akhir">
+        <canvas id="modal-confetti"></canvas>
+        <div class="modal-content ultra-glass">
+            <div class="modal-image-wrapper">
+                <img src="assets/hadiah-akhir.jpg" alt="Hadiah Akhir">
+                <div class="image-overlay-sparkle"></div>
+            </div>
+            <h2 class="modal-title">Untuk Kesayanganku</h2>
             <p class="gift-caption">HAYYIEE CINTAAA, ini hadiah buat kamu! hadiah ini mungkin kecil dan tidak seberapa, tetapi aku benar-benar ingin merayakan hari ulang tahunmu dengan sepenuh hati. selamat bertambah usia yaa, cinta. semoga setiap langkahmu selalu dipenuhi kebahagiaan, kesehatan, keberkahan, dan semua impianmu dapat tercapai. yuk, ambil hadiahnyaa!</p>
             <div class="modal-actions">
-                <a href="https://wa.me/6283815954022?text=AKU%20MAU%20SAYANGGG%20%3A3" class="btn-primary" target="_blank">Ambil Hadiah</a>
-                <button class="btn-secondary" onclick="resetToStart()">Kembali ke Awal</button>
+                <a href="https://wa.me/6283815954022?text=AKU%20MAU%20SAYANGGG%20%3A3" class="btn-primary" target="_blank">
+                    <i class="ph-fill ph-whatsapp-logo"></i> Ambil Hadiah
+                </a>
+                <button class="btn-secondary" onclick="resetToStart()">
+                    <i class="ph-bold ph-arrow-counter-clockwise"></i> Kembali ke Awal
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- APPLE STYLE BOTTOM NAV -->
-    <nav id="bottom-nav" class="apple-nav glass-panel hidden">
+    <nav id="bottom-nav" class="apple-nav ultra-glass hidden">
         <a href="#hero" class="nav-item active"><i class="ph-fill ph-house"></i><span>Home</span></a>
-        <a href="#wishes" class="nav-item"><i class="ph-fill ph-envelope-simple-open"></i><span>Wishes</span></a>
-        <a href="#gallery" class="nav-item"><i class="ph-fill ph-image"></i><span>Gallery</span></a>
-        <a href="#make-wish" class="nav-item"><i class="ph-fill ph-star"></i><span>Wish</span></a>
-        <a href="#final" class="nav-item"><i class="ph-fill ph-gift"></i><span>Gift</span></a>
+        <a href="#timeline" class="nav-item"><i class="ph-fill ph-clock-counter-clockwise"></i><span>Jejak</span></a>
+        <a href="#wishes" class="nav-item"><i class="ph-fill ph-envelope-open"></i><span>Pesan</span></a>
+        <a href="#gallery" class="nav-item"><i class="ph-fill ph-film-strip"></i><span>Galeri</span></a>
+        <a href="#final" class="nav-item"><i class="ph-fill ph-gift"></i><span>Hadiah</span></a>
     </nav>
 
     <script src="script.js"></script>
