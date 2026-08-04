@@ -221,35 +221,7 @@ body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg-light
 .wish-glass-box h2 { font-size: 2.5rem; margin-bottom: 15px; color: var(--primary); }
 .wish-input-wrapper { display: flex; margin-top: 40px; background: rgba(255,255,255,0.8); border-radius: 50px; padding: 8px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.05); }
 .wish-input-wrapper input { flex: 1; border: none; background: transparent; padding: 15px 25px; outline: none; font-size: 1.1rem; font-weight: 500; }
-.wish-input-wrapper button { 
-    background: linear-gradient(135deg, var(--primary), var(--secondary)); 
-    color: white; 
-    border: none; 
-    height: 55px; 
-    padding: 0 25px; /* Ubah dari ukuran fix bulat menjadi lonjong */
-    border-radius: 50px; 
-    cursor: pointer; 
-    font-size: 1.1rem; 
-    font-weight: 700;
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    gap: 8px; /* Jarak antara teks Kirim dan Icon */
-    transition: all 0.3s; 
-    box-shadow: 0 5px 15px rgba(255,42,133,0.4); 
-}
-
-/* Responsif HP untuk bagian tombol kirim */
-@media (max-width: 768px) {
-    .wish-input-wrapper button {
-        padding: 0 20px;
-        font-size: 1rem;
-    }
-    .wish-input-wrapper button span {
-        display: none; /* Sembunyikan teks "Kirim" di HP kalau layar terlalu sempit */
-    }
-}
-
+.wish-input-wrapper button { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; width: 55px; height: 55px; border-radius: 50%; cursor: pointer; font-size: 1.5rem; transition: all 0.3s; box-shadow: 0 5px 15px rgba(255,42,133,0.4); }
 .wish-input-wrapper button:active { transform: scale(0.9); }
 .cosmic-mode { background: #0b0214 !important; }
 .cosmic-mode .wish-glass-box { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: white; box-shadow: 0 0 50px rgba(255,255,255,0.1); }
